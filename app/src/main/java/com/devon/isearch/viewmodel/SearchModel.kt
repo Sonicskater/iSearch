@@ -16,7 +16,7 @@ class SearchModel : ViewModel(), ISearchModel {
     override val movies: LiveData<List<Movie>>
         get() = _movies
 
-    override var searchString: String
-        get() = TODO("not implemented") //To change initializer of created properties use File | Settings | File Templates.
+    override var searchString: String = ""
+        get() = field
         set(value) {}
 }
