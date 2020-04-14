@@ -64,7 +64,25 @@ class SearchModelTest : KoinTest {
     @Test
     fun searchStringUpdatesList(){
         searchModel.searchString = "A"
-        assertEquals(searchModel.movies.value, listOf(Movie("Antman"), Movie("Another Movie")))
+        assertEquals(listOf(Movie("Antman"), Movie("Another Movie")),searchModel.movies.value)
+    }
+
+    @Test
+    fun searchStringUpdatesListReactive(){
+        searchModel.searchString = "A"
+        assertEquals(listOf(Movie("Antman"), Movie("Another Movie")),searchModel.movies.value)
+
+        searchModel.searchString = "An"
+        assertEquals(listOf(Movie("Antman"), Movie("Another Movie")),searchModel.movies.value)
+
+        searchModel.searchString = "Ant"
+        assertEquals(listOf(Movie("Antman")),searchModel.movies.value)
+
+        searchModel.searchString = "An"
+        assertEquals(listOf(Movie("Antman"), Movie("Another Movie")),searchModel.movies.value)
+
+        searchModel.searchString = "Ano"
+        assertEquals(listOf(Movie("Another Movie")), searchModel.movies.value)
     }
 
 }
