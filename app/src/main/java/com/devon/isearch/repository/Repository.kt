@@ -1,5 +1,6 @@
 package com.devon.isearch.repository
 
+import androidx.lifecycle.LiveData
 import com.devon.isearch.datasource.IDataSource
 import com.devon.isearch.model.IModel
 import com.devon.isearch.model.types.Movie
@@ -13,11 +14,11 @@ class Repository: IRepository {
     val local_data: IModel by inject(IModel::class.java)
 
 
-    override fun getMoviesByPartialTitle(partial_title: String): List<Movie> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun getMoviesByPartialTitle(partial_title: String): LiveData<List<Movie>> {
+        TODO("Not implemented")
     }
 
-    override fun getMovieByTitle(title: String): Movie {
+    override fun getMovieByTitle(title: String): LiveData<Movie> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 

@@ -10,7 +10,10 @@ import com.devon.isearch.repository.Repository
 import org.koin.core.context.startKoin
 import org.koin.dsl.module
 
+// Override Application entry point so we can start Koin
 class iSearchApplication: Application() {
+
+    // Koin runtime configuration
     var appModule = module {
         single<IRepository> {Repository()}
         single<IDataSource> {iTunesSource()}
