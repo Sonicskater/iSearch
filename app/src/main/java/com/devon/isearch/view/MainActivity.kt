@@ -1,7 +1,8 @@
-package com.devon.isearch
+package com.devon.isearch.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.devon.isearch.R
 
 class MainActivity : AppCompatActivity() {
 
