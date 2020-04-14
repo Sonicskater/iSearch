@@ -67,6 +67,7 @@ class SearchModelTest : KoinTest {
         assertEquals(listOf(Movie("Antman"), Movie("Another Movie")),searchModel.movies.value)
     }
 
+    // Tests if data updates correctly as field is "typed" in
     @Test
     fun searchStringUpdatesListReactive(){
         searchModel.searchString = "A"
@@ -83,6 +84,16 @@ class SearchModelTest : KoinTest {
 
         searchModel.searchString = "Ano"
         assertEquals(listOf(Movie("Another Movie")), searchModel.movies.value)
+    }
+
+    // Ensures screen clears when no query is entered
+    @Test
+    fun listClears(){
+        searchModel.searchString = "A"
+        assertEquals(listOf(Movie("Antman"), Movie("Another Movie")),searchModel.movies.value)
+
+        searchModel.searchString = ""
+        assertEquals(listOf<Movie>(), searchModel.movies.value)
     }
 
 }

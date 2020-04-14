@@ -7,6 +7,10 @@ import org.koin.core.context.startKoin
 import org.koin.dsl.module
 
 class iSearchApplication: Application() {
+    var appModule = module {
+        single<IRepository> {Repository()}
+    }
+
     override fun onCreate() {
         super.onCreate()
         startKoin {
@@ -15,6 +19,3 @@ class iSearchApplication: Application() {
     }
 }
 
-var appModule = module {
-    single<IRepository> {Repository()}
-}

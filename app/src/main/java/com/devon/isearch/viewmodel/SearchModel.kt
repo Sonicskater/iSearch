@@ -24,6 +24,6 @@ class SearchModel : ViewModel(), ISearchModel {
     override var searchString: String = ""
         set(value) {
             field = value
-            _movies.value = repository.getMoviesByPartialTitle("A")
+            _movies.value = repository.getMoviesByPartialTitle(field)
         }
 }
