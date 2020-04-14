@@ -1,7 +1,8 @@
 package com.devon.isearch
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.devon.isearch.model.Movie
+import com.devon.isearch.mocks.MockRepository
+import com.devon.isearch.model.types.Movie
 import com.devon.isearch.repository.IRepository
 import com.devon.isearch.viewmodel.ISearchModel
 import com.devon.isearch.viewmodel.SearchModel
@@ -39,6 +40,7 @@ class SearchModelTest : KoinTest {
         stopKoin()
     }
 
+    // define the mock repository for testing
     val mocks = module {
         single<IRepository> {
             MockRepository(
@@ -64,23 +66,35 @@ class SearchModelTest : KoinTest {
     @Test
     fun searchStringUpdatesList(){
         searchModel.searchString = "A"
-        assertEquals(listOf(Movie("Antman"), Movie("Another Movie")),searchModel.movies.value)
+        assertEquals(listOf(
+            Movie("Antman"),
+            Movie("Another Movie")
+        ),searchModel.movies.value)
     }
 
     // Tests if data updates correctly as field is "typed" in
     @Test
     fun searchStringUpdatesListReactive(){
         searchModel.searchString = "A"
-        assertEquals(listOf(Movie("Antman"), Movie("Another Movie")),searchModel.movies.value)
+        assertEquals(listOf(
+            Movie("Antman"),
+            Movie("Another Movie")
+        ),searchModel.movies.value)
 
         searchModel.searchString = "An"
-        assertEquals(listOf(Movie("Antman"), Movie("Another Movie")),searchModel.movies.value)
+        assertEquals(listOf(
+            Movie("Antman"),
+            Movie("Another Movie")
+        ),searchModel.movies.value)
 
         searchModel.searchString = "Ant"
         assertEquals(listOf(Movie("Antman")),searchModel.movies.value)
 
         searchModel.searchString = "An"
-        assertEquals(listOf(Movie("Antman"), Movie("Another Movie")),searchModel.movies.value)
+        assertEquals(listOf(
+            Movie("Antman"),
+            Movie("Another Movie")
+        ),searchModel.movies.value)
 
         searchModel.searchString = "Ano"
         assertEquals(listOf(Movie("Another Movie")), searchModel.movies.value)
@@ -90,7 +104,10 @@ class SearchModelTest : KoinTest {
     @Test
     fun listClears(){
         searchModel.searchString = "A"
-        assertEquals(listOf(Movie("Antman"), Movie("Another Movie")),searchModel.movies.value)
+        assertEquals(listOf(
+            Movie("Antman"),
+            Movie("Another Movie")
+        ),searchModel.movies.value)
 
         searchModel.searchString = ""
         assertEquals(listOf<Movie>(), searchModel.movies.value)

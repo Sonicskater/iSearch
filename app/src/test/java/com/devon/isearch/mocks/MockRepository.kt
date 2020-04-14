@@ -1,6 +1,6 @@
-package com.devon.isearch
+package com.devon.isearch.mocks
 
-import com.devon.isearch.model.Movie
+import com.devon.isearch.model.types.Movie
 import com.devon.isearch.repository.IRepository
 
 

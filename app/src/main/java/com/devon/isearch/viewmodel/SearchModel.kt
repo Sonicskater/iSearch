@@ -3,7 +3,7 @@ package com.devon.isearch.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.devon.isearch.model.Movie
+import com.devon.isearch.model.types.Movie
 import com.devon.isearch.repository.IRepository
 import org.koin.java.KoinJavaComponent.inject
 
@@ -24,6 +24,10 @@ class SearchModel : ViewModel(), ISearchModel {
     override var searchString: String = ""
         set(value) {
             field = value
-            _movies.value = repository.getMoviesByPartialTitle(field)
+            if (value.isBlank()) {
+                _movies.value = listOf()
+            } else{
+                _movies.value = repository.getMoviesByPartialTitle(field)
+            }
         }
 }
