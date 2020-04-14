@@ -1,5 +1,3 @@
 package com.devon.isearch.model
 
-class Movie {
-
-}
+data class Movie(val name: String)
