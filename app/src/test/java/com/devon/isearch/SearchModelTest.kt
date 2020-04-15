@@ -32,6 +32,8 @@ class SearchModelTest : KoinTest {
         startKoin {
             modules(mocks)
         }
+        // make the test class observe the data so it is actually computed
+        searchModel.movies.observeForever {  }
     }
 
     @After
@@ -55,7 +57,7 @@ class SearchModelTest : KoinTest {
     // Pre-conditions, if these fail rest of tests are nonsense as the viewmodel is in invalid state
     @Test
     fun initialStateIsEmpty() {
-        assertTrue(searchModel.movies.value?.isEmpty() ?: false)
+        assertEquals(listOf<Movie>(), searchModel.movies.value)
     }
     @Test
     fun initialSearchStringIsEmpty(){

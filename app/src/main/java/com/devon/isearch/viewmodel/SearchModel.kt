@@ -15,12 +15,13 @@ class SearchModel : ViewModel(), ISearchModel {
 
     private val _searchString: MutableLiveData<String> = MutableLiveData("")
 
-
-
-    // initialize LiveData, doesn't seem like i can provide a initial value in constructor
-
     override val movies: LiveData<List<Movie>> = Transformations.switchMap(_searchString){
-        repository.getMoviesByPartialTitle(it)
+        if (it != "") {
+            repository.getMoviesByPartialTitle(it)
+        } else{
+            // needs to contain an empty list, not null
+            MutableLiveData(listOf())
+        }
     }
 
     override var searchString: String
