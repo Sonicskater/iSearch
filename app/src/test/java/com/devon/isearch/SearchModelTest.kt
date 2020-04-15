@@ -10,6 +10,7 @@ import org.junit.After
 import org.junit.Test
 
 import org.junit.Assert.*
+import org.junit.Assume.assumeTrue
 import org.junit.Before
 import org.junit.Rule
 import org.koin.core.context.startKoin
@@ -57,6 +58,7 @@ class SearchModelTest : KoinTest {
     // Pre-conditions, if these fail rest of tests are nonsense as the viewmodel is in invalid state
     @Test
     fun initialStateIsEmpty() {
+        assumeTrue(searchModel.searchString == "")
         assertEquals(listOf<Movie>(), searchModel.movies.value)
     }
     @Test
@@ -67,6 +69,8 @@ class SearchModelTest : KoinTest {
     // Test basic search functionality
     @Test
     fun searchStringUpdatesList(){
+        searchModel.searchString = ""
+        assumeTrue(listOf<Movie>() == searchModel.movies.value)
         searchModel.searchString = "A"
         assertEquals(listOf(
             Movie("Antman"),
@@ -76,40 +80,34 @@ class SearchModelTest : KoinTest {
 
     // Tests if data updates correctly as field is "typed" in
     @Test
-    fun searchStringUpdatesListReactive(){
-        searchModel.searchString = "A"
-        assertEquals(listOf(
-            Movie("Antman"),
-            Movie("Another Movie")
-        ),searchModel.movies.value)
-
+    fun searchStringUpdatesListAdd(){
         searchModel.searchString = "An"
-        assertEquals(listOf(
+        assumeTrue(listOf(
             Movie("Antman"),
             Movie("Another Movie")
-        ),searchModel.movies.value)
-
+        ) == searchModel.movies.value)
         searchModel.searchString = "Ant"
-        assertEquals(listOf(Movie("Antman")),searchModel.movies.value)
+        assertEquals(listOf(
+            Movie("Antman")
+        ),searchModel.movies.value)
+    }
 
+    @Test
+    fun searchStringUpdatesListSubtract(){
+        searchModel.searchString = "Ant"
+        assumeTrue(listOf(Movie("Antman")) == searchModel.movies.value)
         searchModel.searchString = "An"
         assertEquals(listOf(
             Movie("Antman"),
             Movie("Another Movie")
         ),searchModel.movies.value)
-
-        searchModel.searchString = "Ano"
-        assertEquals(listOf(Movie("Another Movie")), searchModel.movies.value)
     }
 
     // Ensures screen clears when no query is entered
     @Test
     fun listClears(){
         searchModel.searchString = "A"
-        assertEquals(listOf(
-            Movie("Antman"),
-            Movie("Another Movie")
-        ),searchModel.movies.value)
+        assumeTrue(listOf(Movie("Antman"), Movie("Another Movie")) == searchModel.movies.value)
 
         searchModel.searchString = ""
         assertEquals(listOf<Movie>(), searchModel.movies.value)
