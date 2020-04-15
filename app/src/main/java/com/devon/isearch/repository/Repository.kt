@@ -1,9 +1,11 @@
 package com.devon.isearch.repository
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.liveData
 import com.devon.isearch.datasource.IDataSource
 import com.devon.isearch.model.IModel
 import com.devon.isearch.model.types.Movie
+import kotlinx.coroutines.*
 import org.koin.java.KoinJavaComponent.inject
 
 class Repository: IRepository {
@@ -13,9 +15,12 @@ class Repository: IRepository {
 
     val local_data: IModel by inject(IModel::class.java)
 
-
     override fun getMoviesByPartialTitle(partial_title: String): LiveData<List<Movie>> {
-        TODO("Not implemented")
+        GlobalScope.launch{
+                val x = remote_datasource.getMoviesByName(partial_title)
+                local_data.addMovies(x)
+        }
+        return local_data.getMoviesByPartialTitle(partial_title)
     }
 
     override fun getMovieByTitle(title: String): LiveData<Movie> {

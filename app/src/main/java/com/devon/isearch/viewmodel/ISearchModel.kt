@@ -5,6 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import com.devon.isearch.model.types.Movie
 
 interface ISearchModel{
-    val movies: LiveData<List<Movie>>
+    val movies: LiveData<out List<Movie>>
     var searchString: String
 }

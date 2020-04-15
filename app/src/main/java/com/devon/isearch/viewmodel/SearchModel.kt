@@ -7,6 +7,7 @@ import androidx.lifecycle.Transformations
 
 import com.devon.isearch.model.types.Movie
 import com.devon.isearch.repository.IRepository
+import kotlinx.coroutines.runBlocking
 import org.koin.java.KoinJavaComponent.inject
 
 class SearchModel : ViewModel(), ISearchModel {
@@ -15,9 +16,10 @@ class SearchModel : ViewModel(), ISearchModel {
 
     private val _searchString: MutableLiveData<String> = MutableLiveData("")
 
-    override val movies: LiveData<List<Movie>> = Transformations.switchMap(_searchString){
+    override val movies: LiveData<out List<Movie>> = Transformations.switchMap(_searchString){
         if (it != "") {
             repository.getMoviesByPartialTitle(it)
+
         } else{
             // needs to contain an empty list, not null
             MutableLiveData(listOf())

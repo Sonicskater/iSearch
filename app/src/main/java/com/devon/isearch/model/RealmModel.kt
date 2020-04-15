@@ -1,4 +1,14 @@
 package com.devon.isearch.model
 
+import androidx.lifecycle.LiveData
+import com.devon.isearch.model.types.Movie
+
 class RealmModel: IModel {
+    override fun getMoviesByPartialTitle(title: String): LiveData<List<Movie>> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override suspend fun addMovies(movies: List<Movie>) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 }
