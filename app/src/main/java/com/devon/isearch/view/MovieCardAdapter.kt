@@ -3,13 +3,12 @@ package com.devon.isearch.view
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.devon.isearch.R
 import com.devon.isearch.viewmodel.ISearchModel
 
 class MovieCardAdapter(val viewModel: ISearchModel) : RecyclerView.Adapter<MovieCardAdapter.MovieViewHolder>() {
-
-
 
     class MovieViewHolder(val textView: TextView): RecyclerView.ViewHolder(textView)
 
@@ -20,7 +19,7 @@ class MovieCardAdapter(val viewModel: ISearchModel) : RecyclerView.Adapter<Movie
     }
 
     override fun getItemCount(): Int {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return viewModel.movies.value!!.size
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {

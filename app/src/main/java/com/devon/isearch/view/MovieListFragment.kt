@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 
 import androidx.recyclerview.widget.RecyclerView
 
@@ -45,6 +47,7 @@ class MovieListFragment : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+        view_model.movies.observe(this, Observer {  })
     }
 
     override fun onCreateView(
@@ -54,7 +57,7 @@ class MovieListFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentMovieListBinding.inflate(inflater, container, false)
-
+        viewManager = LinearLayoutManager(context)
         viewAdapter = MovieCardAdapter(view_model)
         val view = binding.root
         view.movie_list.apply {
