@@ -1,10 +1,11 @@
 package com.devon.isearch.viewmodel
 
+
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.devon.isearch.model.types.Movie
 
-interface ISearchModel{
-    val movies: LiveData<out List<Movie>>
-    var searchString: String
+abstract class ISearchModel: ViewModel(){
+    abstract val movies: LiveData<out List<Movie>>
+    abstract var searchString: String
 }

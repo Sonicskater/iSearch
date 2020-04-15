@@ -10,7 +10,7 @@ import com.devon.isearch.repository.IRepository
 import kotlinx.coroutines.runBlocking
 import org.koin.java.KoinJavaComponent.inject
 
-class SearchModel : ViewModel(), ISearchModel {
+class SearchModel : ISearchModel() {
 
     private val repository: IRepository by inject(IRepository::class.java)
 

@@ -5,10 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+
 import androidx.recyclerview.widget.RecyclerView
-import com.devon.isearch.R
+
 import com.devon.isearch.databinding.FragmentMovieListBinding
+import com.devon.isearch.viewmodel.ISearchModel
 import kotlinx.android.synthetic.main.fragment_movie_list.view.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -24,6 +27,8 @@ class MovieListFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+
+    val view_model: ISearchModel by viewModel()
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
@@ -49,7 +54,14 @@ class MovieListFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentMovieListBinding.inflate(inflater, container, false)
+
+        viewAdapter = MovieCardAdapter(view_model)
         val view = binding.root
+        view.movie_list.apply {
+            setHasFixedSize(true)
+            adapter = viewAdapter
+            layoutManager = viewManager
+        }
         return view
     }
 

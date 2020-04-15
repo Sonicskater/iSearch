@@ -1,0 +1,29 @@
+package com.devon.isearch.view
+
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
+import com.devon.isearch.R
+import com.devon.isearch.viewmodel.ISearchModel
+
+class MovieCardAdapter(val viewModel: ISearchModel) : RecyclerView.Adapter<MovieCardAdapter.MovieViewHolder>() {
+
+
+
+    class MovieViewHolder(val textView: TextView): RecyclerView.ViewHolder(textView)
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
+        val textView = LayoutInflater.from(parent.context).inflate(R.layout.test_text_view, parent, false) as TextView
+
+        return MovieViewHolder(textView)
+    }
+
+    override fun getItemCount(): Int {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+}
