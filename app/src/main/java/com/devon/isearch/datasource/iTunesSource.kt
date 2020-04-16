@@ -15,6 +15,6 @@ class iTunesSource: IDataSource {
 
         val parsed = gson.fromJson(data, MovieSearch::class.java)
 
-        return parsed.results.map { Movie(it.trackName) }
+        return parsed?.results?.map { Movie(it.trackName) } ?: listOf()
     }
 }
