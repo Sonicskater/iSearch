@@ -1,29 +1,49 @@
 package com.devon.isearch
 
 import android.content.Context
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.test.annotation.UiThreadTest
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.devon.isearch.model.LocalRealmModel
 import com.devon.isearch.model.types.Movie
 import io.realm.Realm
 import io.realm.RealmConfiguration
-import kotlinx.coroutines.runBlocking
-import org.junit.Before
-import org.junit.Test
-import org.junit.Assert.*
+import kotlinx.coroutines.test.runBlockingTest
+import org.junit.After
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Assume.assumeTrue
+import org.junit.Before
+import org.junit.Rule
+import org.junit.Test
 import org.junit.runner.RunWith
+
 
 @RunWith(AndroidJUnit4::class)
 class LocalRealmModelTest {
     lateinit var localRealmModel: LocalRealmModel
     lateinit var instrumentationContext: Context
 
+    lateinit var config: RealmConfiguration;
+
+
+    @get:Rule
+    val instantTaskExecutorRule = InstantTaskExecutorRule()
+
     @Before
+    @UiThreadTest
     fun setup(){
         Realm.init(InstrumentationRegistry.getInstrumentation().targetContext)
-        val config: RealmConfiguration = RealmConfiguration.Builder().inMemory().name("test-realm").build()
+        config = RealmConfiguration.Builder().name("test-realm").build()
+        Realm.deleteRealm(config)
         localRealmModel = LocalRealmModel(config)
+    }
+
+    @After
+    @UiThreadTest
+    fun cleanup(){
+
     }
 
     val test_data = listOf<Movie>(
@@ -33,20 +53,29 @@ class LocalRealmModelTest {
     )
 
     @Test
+    @UiThreadTest
     fun addition(){
-        runBlocking{
+        runBlockingTest{
+            assumeTrue(localRealmModel.moviesCount() == 0)
             localRealmModel.addMovies(test_data)
             assertTrue(localRealmModel.moviesCount() == test_data.size)
         }
+        localRealmModel.cleanup()
     }
 
     @Test
+    @UiThreadTest
     fun retreival(){
-        runBlocking{
+        assumeTrue(localRealmModel.moviesCount() == 0)
+        runBlockingTest {
             localRealmModel.addMovies(test_data)
-            assumeTrue(localRealmModel.moviesCount() == test_data.size)
-            assertEquals(test_data,localRealmModel.getMoviesByPartialTitle(""))
         }
+        assumeTrue(localRealmModel.moviesCount() == test_data.size)
+        val x = localRealmModel.getMoviesByPartialTitle("")
+        x.observeForever {}
+        assertEquals(test_data,x.value)
+
+        localRealmModel.cleanup()
     }
 
 

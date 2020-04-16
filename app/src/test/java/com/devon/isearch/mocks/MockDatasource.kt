@@ -5,6 +5,6 @@ import com.devon.isearch.model.types.Movie
 
 class MockDatasource(private val movies: List<Movie>): IDataSource {
     override fun getMoviesByName(name: String): List<Movie> {
-        return movies.filter { it.name.startsWith(name) }
+        return movies.filter { it.title.startsWith(name) }
     }
 }

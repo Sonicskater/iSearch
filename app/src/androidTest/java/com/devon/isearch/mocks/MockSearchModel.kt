@@ -13,7 +13,7 @@ class MockSearchModel(private val all_movies: List<Movie>) :  ISearchModel(){
         set(value) {
             field = value
             if (value.isNotEmpty()) {
-                _movies.value = all_movies.filter { it.name.startsWith(value) }
+                _movies.value = all_movies.filter { it.title.startsWith(value) }
             }else{
                 _movies.value = listOf()
             }
