@@ -10,7 +10,6 @@ class MockSearchModel(private val all_movies: List<Movie>) :  ISearchModel(){
     override val movies: LiveData<out List<Movie>>
         get() = _movies
     override var searchString: String = ""
-        get() = field
         set(value) {
             field = value
             if (value.isNotEmpty()) {

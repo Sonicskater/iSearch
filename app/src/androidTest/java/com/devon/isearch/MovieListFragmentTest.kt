@@ -1,5 +1,6 @@
 package com.devon.isearch
 
+import android.widget.SearchView
 import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.recyclerview.widget.RecyclerView
 import androidx.test.espresso.Espresso.onView
@@ -9,6 +10,7 @@ import com.devon.isearch.model.types.Movie
 import com.devon.isearch.mocks.MockSearchModel
 import com.devon.isearch.view.MovieListFragment
 import com.devon.isearch.viewmodel.ISearchModel
+import kotlinx.android.synthetic.main.test_text_view.view.*
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -48,6 +50,20 @@ class MovieListFragmentTest {
             assumeTrue(view is RecyclerView)
             assumeTrue((view as RecyclerView).adapter != null)
             assertTrue(view.adapter != null && view.adapter?.itemCount == 0)
+        }
+    }
+
+    @Test
+    fun testInitialStateSearch(){
+        val scenario = launchFragmentInContainer<MovieListFragment>(fragmentArgs = null, factory = null)
+
+        onView(withId(R.id.search_bar)).check{ view, noViewFoundException ->
+            noViewFoundException?.apply {
+                throw this
+            }
+            assumeTrue(view is SearchView)
+            assumeTrue((view as SearchView).query != null)
+            assertTrue((view as SearchView).query == "")
         }
     }
 }
