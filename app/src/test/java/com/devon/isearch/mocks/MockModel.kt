@@ -18,4 +18,8 @@ class MockModel(private val _movies: MutableLiveData<List<Movie>>) : IModel{
         _movies.value = x
     }
 
+    override fun moviesCount(): Int {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
 }
