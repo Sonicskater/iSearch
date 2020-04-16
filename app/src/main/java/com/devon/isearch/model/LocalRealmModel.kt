@@ -13,11 +13,19 @@ class LocalRealmModel(private val realm_config: RealmConfiguration): IModel {
 
     override suspend fun addMovies(movies: List<Movie>) {
         Realm.getInstance(realm_config).use { realm ->
-
+            realm.executeTransaction {
+                it.copyToRealmOrUpdate(movies)
+            }
         }
     }
 
     override fun moviesCount(): Int {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        var x = 0
+        Realm.getInstance(realm_config).use{
+            it.executeTransaction {
+                x = it.where(Movie::class.java).alwaysTrue().findAll().size
+            }
+        }
+        return x
     }
 }

@@ -33,6 +33,14 @@ class LocalRealmModelTest {
     )
 
     @Test
+    fun addition(){
+        runBlocking{
+            localRealmModel.addMovies(test_data)
+            assertTrue(localRealmModel.moviesCount() == test_data.size)
+        }
+    }
+
+    @Test
     fun retreival(){
         runBlocking{
             localRealmModel.addMovies(test_data)
