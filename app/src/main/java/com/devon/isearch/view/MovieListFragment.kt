@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 
 import androidx.recyclerview.widget.RecyclerView
@@ -62,18 +63,22 @@ class MovieListFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentMovieListBinding.inflate(inflater, container, false)
-        viewManager = LinearLayoutManager(context)
+        viewManager = GridLayoutManager(context,2)
         viewAdapter = MovieCardAdapter(view_model)
         val view = binding.root
         view.search_bar.addTextChangedListener {
             view_model.searchString = it.toString()
             view.movie_list.adapter?.notifyDataSetChanged()
-
         }
         view.movie_list.apply {
             setHasFixedSize(true)
             adapter = viewAdapter
             layoutManager = viewManager
+        }
+        view.movie_refresh.setOnRefreshListener {
+            view_model.searchString = view_model.searchString
+            view.movie_list.adapter?.notifyDataSetChanged()
+            view.movie_refresh.isRefreshing = false
         }
         return view
     }
