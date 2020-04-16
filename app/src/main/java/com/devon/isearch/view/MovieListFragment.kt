@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 
@@ -60,6 +61,9 @@ class MovieListFragment : Fragment() {
         viewManager = LinearLayoutManager(context)
         viewAdapter = MovieCardAdapter(view_model)
         val view = binding.root
+        view.search_bar.addTextChangedListener{
+            view_model.searchString = it.toString()
+        }
         view.movie_list.apply {
             setHasFixedSize(true)
             adapter = viewAdapter

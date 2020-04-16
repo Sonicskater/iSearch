@@ -1,6 +1,8 @@
 package com.devon.isearch
 
+import android.widget.EditText
 import android.widget.SearchView
+import android.widget.TextView
 import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.recyclerview.widget.RecyclerView
 import androidx.test.espresso.Espresso.onView
@@ -61,9 +63,9 @@ class MovieListFragmentTest {
             noViewFoundException?.apply {
                 throw this
             }
-            assumeTrue(view is SearchView)
-            assumeTrue((view as SearchView).query != null)
-            assertTrue((view as SearchView).query == "")
+            assumeTrue(view is EditText)
+            assumeTrue((view as EditText).text != null)
+            assertTrue((view as EditText).text.toString() == "")
         }
     }
 }
