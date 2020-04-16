@@ -6,6 +6,8 @@ import android.widget.TextView
 import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.recyclerview.widget.RecyclerView
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.action.ViewActions.typeText
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.devon.isearch.model.types.Movie
@@ -66,6 +68,44 @@ class MovieListFragmentTest {
             assumeTrue(view is EditText)
             assumeTrue((view as EditText).text != null)
             assertTrue((view as EditText).text.toString() == "")
+        }
+    }
+
+    @Test
+    fun testChangeText(){
+        val scenario = launchFragmentInContainer<MovieListFragment>(fragmentArgs = null, factory = null)
+        val test_string = "A"
+        onView(withId(R.id.search_bar)).perform(click(), typeText(test_string)).check{ view, noViewFoundException ->
+            noViewFoundException?.apply {
+                throw this
+            }
+            assumeTrue(view is EditText)
+            assumeTrue((view as EditText).text != null)
+            assertTrue((view as EditText).text.toString() == test_string)
+        }
+    }
+
+    @Test
+    fun testChangeTextSearch(){
+        val scenario = launchFragmentInContainer<MovieListFragment>(fragmentArgs = null, factory = null)
+        val test_string = "A"
+        onView(withId(R.id.search_bar)).perform(click(), typeText(test_string)).check{ view, noViewFoundException ->
+            noViewFoundException?.apply {
+                throw this
+            }
+            assumeTrue(view is EditText)
+            assumeTrue((view as EditText).text != null)
+            assumeTrue((view as EditText).text.toString() == test_string)
+        }
+
+        onView(withId(R.id.movie_list)).check { view, noViewFoundException ->
+            noViewFoundException?.apply {
+                throw this
+            }
+            assumeTrue(view is RecyclerView)
+            assumeTrue((view as RecyclerView).adapter != null)
+            assumeTrue((view).adapter!!.itemCount == 1)
+
         }
     }
 }
