@@ -6,6 +6,9 @@ import io.realm.Realm
 import io.realm.RealmConfiguration
 import io.realm.RealmObject
 import io.realm.RealmResults
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+
 
 class LocalRealmModel(private val realm_config: RealmConfiguration): IModel {
 
@@ -24,7 +27,6 @@ class LocalRealmModel(private val realm_config: RealmConfiguration): IModel {
             realm.executeTransaction {
                 it.insertOrUpdate(movies)
                 val x = it.where(Movie::class.java).count().toInt()
-                x
             }
         }
     }

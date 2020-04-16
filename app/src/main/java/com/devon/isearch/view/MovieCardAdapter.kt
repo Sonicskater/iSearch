@@ -24,6 +24,6 @@ class MovieCardAdapter(val viewModel: ISearchModel) : RecyclerView.Adapter<Movie
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
     }
 }
