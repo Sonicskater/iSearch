@@ -50,7 +50,9 @@ class MovieListFragment : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
-        view_model.movies.observe(this, Observer {  })
+        view_model.movies.observe(this, Observer {
+            binding.movieList.adapter?.notifyDataSetChanged()
+        })
     }
 
     override fun onCreateView(
