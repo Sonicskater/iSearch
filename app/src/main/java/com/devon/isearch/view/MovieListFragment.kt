@@ -63,28 +63,11 @@ class MovieListFragment : Fragment() {
         viewManager = LinearLayoutManager(context)
         viewAdapter = MovieCardAdapter(view_model)
         val view = binding.root
-        view.search_bar.addTextChangedListener(
-            object : TextWatcher{
-                override fun afterTextChanged(s: Editable?) {
-                    view_model.searchString = s.toString()
-                    view.movie_list.adapter?.notifyDataSetChanged()
-                }
+        view.search_bar.addTextChangedListener {
+            view_model.searchString = it.toString()
+            view.movie_list.adapter?.notifyDataSetChanged()
 
-                override fun beforeTextChanged(
-                    s: CharSequence?,
-                    start: Int,
-                    count: Int,
-                    after: Int
-                ) {
-                    // no op
-                }
-
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                    // no op
-                }
-
-            }
-        )
+        }
         view.movie_list.apply {
             setHasFixedSize(true)
             adapter = viewAdapter

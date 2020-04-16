@@ -78,5 +78,23 @@ class LocalRealmModelTest {
         localRealmModel.cleanup()
     }
 
+    @Test
+    @UiThreadTest
+    fun caseInsensitive(){
+        assumeTrue(localRealmModel.moviesCount() == 0)
+        runBlockingTest {
+            localRealmModel.addMovies(test_data)
+        }
+        assumeTrue(localRealmModel.moviesCount() == test_data.size)
+        val x = localRealmModel.getMoviesByPartialTitle("a")
+        x.observeForever {}
+        assertEquals(listOf(
+            Movie("Antman"),
+            Movie("Avengers")
+        ),x.value)
+
+        localRealmModel.cleanup()
+    }
+
 
 }

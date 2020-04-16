@@ -89,6 +89,16 @@ class MovieListFragmentTest {
     fun testChangeTextSearch(){
         val scenario = launchFragmentInContainer<MovieListFragment>(fragmentArgs = null, factory = null)
         val test_string = "A"
+        onView(withId(R.id.movie_list)).check { view, noViewFoundException ->
+            noViewFoundException?.apply {
+                throw this
+            }
+            assumeTrue(view is RecyclerView)
+            assumeTrue((view as RecyclerView).adapter != null)
+            assumeTrue((view).adapter!!.itemCount == 0)
+
+        }
+
         onView(withId(R.id.search_bar)).perform(click(), typeText(test_string)).check{ view, noViewFoundException ->
             noViewFoundException?.apply {
                 throw this
@@ -104,7 +114,7 @@ class MovieListFragmentTest {
             }
             assumeTrue(view is RecyclerView)
             assumeTrue((view as RecyclerView).adapter != null)
-            assumeTrue((view).adapter!!.itemCount == 1)
+            assertTrue((view).adapter!!.itemCount == 1)
 
         }
     }
