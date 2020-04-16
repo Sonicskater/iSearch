@@ -2,12 +2,7 @@ package com.devon.isearch.model
 
 import androidx.lifecycle.LiveData
 import com.devon.isearch.model.types.Movie
-import io.realm.Realm
-import io.realm.RealmConfiguration
-import io.realm.RealmObject
-import io.realm.RealmResults
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import io.realm.*
 
 
 class LocalRealmModel(private val realm_config: RealmConfiguration): IModel {
@@ -17,7 +12,7 @@ class LocalRealmModel(private val realm_config: RealmConfiguration): IModel {
     override fun getMoviesByPartialTitle(title: String): LiveData<List<Movie>> {
         lateinit var x: RealmResults<Movie>
         instance.executeTransaction {
-             x = it.where(Movie::class.java).beginsWith("title",title).findAll()
+             x = it.where(Movie::class.java).beginsWith("title",title, Case.INSENSITIVE).findAll()
         }
         return LiveRealmResults(x) as LiveData<List<Movie>>
     }

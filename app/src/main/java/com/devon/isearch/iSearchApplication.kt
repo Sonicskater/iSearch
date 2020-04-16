@@ -2,6 +2,8 @@ package com.devon.isearch
 
 import android.app.Application
 import com.devon.isearch.datasource.IDataSource
+import com.devon.isearch.datasource.IRequester
+import com.devon.isearch.datasource.iTunesRequester
 import com.devon.isearch.datasource.iTunesSource
 import com.devon.isearch.model.IModel
 import com.devon.isearch.model.LocalRealmModel
@@ -31,7 +33,7 @@ class iSearchApplication: Application() {
             single<IRepository> {Repository()}
             single<IDataSource> {iTunesSource()}
             single<IModel> {LocalRealmModel(RealmConfiguration.Builder().build())}
-
+            single<IRequester> {iTunesRequester()}
             viewModel<ISearchModel> { SearchModel() }
         }
         startKoin {

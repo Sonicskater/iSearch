@@ -1,6 +1,7 @@
 package com.devon.isearch
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.devon.isearch.datasource.IDataSource
 import com.devon.isearch.mocks.MockDatasource
@@ -12,6 +13,7 @@ import com.devon.isearch.repository.IRepository
 import com.devon.isearch.repository.Repository
 import com.devon.isearch.viewmodel.SearchModel
 import junit.framework.Assert.assertEquals
+import kotlinx.coroutines.test.runBlockingTest
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -64,10 +66,12 @@ class RepositoryTest: KoinTest {
         startKoin {
             modules(mocks)
         }
-        val x = repository.getMoviesByPartialTitle("A")
-        x.observeForever {  }
+        lateinit var x: LiveData<List<Movie>>
+        runBlockingTest {
+            x = repository.getMoviesByPartialTitle("A")
+            x.observeForever {  }
+        }
         assertEquals(listOf(Movie("AntMan"),Movie("Avengers")),x.value)
-
     }
 
     @Test
