@@ -2,6 +2,7 @@
     <string name="app_name">iSearch</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank list</string>
     <string name="hello_blank_fragment_detail">Hello blank detail</string>
+    <string name="search_hint">Enter search terms here</string>
+    <string name="movie_poster">movie poster</string>
 </resources>

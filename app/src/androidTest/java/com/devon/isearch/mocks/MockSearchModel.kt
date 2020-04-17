@@ -19,4 +19,8 @@ class MockSearchModel(private val all_movies: List<Movie>) :  ISearchModel(){
             }
         }
 
+    override fun connected(): Boolean {
+        return true
+    }
+
 }

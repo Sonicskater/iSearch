@@ -67,6 +67,8 @@ class RepositoryTest: KoinTest {
             modules(mocks)
         }
         lateinit var x: LiveData<List<Movie>>
+        // for some reason this isn't forcing the coroutine to finish before the evaluation
+        // not sure how to make this test 100% reliable without breaking the abstraction
         runBlockingTest {
             x = repository.getMoviesByPartialTitle("A")
             x.observeForever {  }

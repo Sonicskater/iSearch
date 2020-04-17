@@ -23,8 +23,4 @@ class Repository: IRepository {
         return local_data.getMoviesByPartialTitle(partial_title)
     }
 
-    override fun getMovieByTitle(title: String): LiveData<Movie> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
 }

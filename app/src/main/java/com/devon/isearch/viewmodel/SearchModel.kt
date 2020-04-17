@@ -2,17 +2,18 @@ package com.devon.isearch.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.Transformations
+import com.devon.isearch.service.ConnectivityChecker
 
 import com.devon.isearch.model.types.Movie
 import com.devon.isearch.repository.IRepository
-import kotlinx.coroutines.runBlocking
 import org.koin.java.KoinJavaComponent.inject
 
 class SearchModel : ISearchModel() {
 
     private val repository: IRepository by inject(IRepository::class.java)
+    private val connectivity: ConnectivityChecker by inject(
+        ConnectivityChecker::class.java)
 
     private val _searchString: MutableLiveData<String> = MutableLiveData("")
 
@@ -31,4 +32,9 @@ class SearchModel : ISearchModel() {
         set(value) {
             _searchString.value = value
         }
+
+    override fun connected(): Boolean {
+        return connectivity.checkConnectivity()
+    }
+
 }

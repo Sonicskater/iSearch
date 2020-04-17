@@ -5,12 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.navArgs
 import com.devon.isearch.R
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+import com.devon.isearch.databinding.FragmentMovieDetailBinding
+import com.devon.isearch.viewmodel.ISearchModel
+import com.squareup.picasso.Picasso
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 /**
  * A simple [Fragment] subclass.
@@ -18,24 +18,36 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class MovieDetailFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
+    val view_model: ISearchModel by sharedViewModel()
+
+    var index: Int? = null
+
+    val args: MovieDetailFragmentArgs by navArgs()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+        index = args.index
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_movie_detail, container, false)
+        val temp = inflater.inflate(R.layout.fragment_movie_detail, container, false)
+        val view = FragmentMovieDetailBinding.bind(temp)
+
+        // configure view to display desired object
+        index?.let {
+            view_model.movies.value?.get(it)?.let { movie ->
+                view.movieTitle.text = movie.title ?: "No movie found"
+                view.movieDesc.text = movie.description ?: ""
+                if (movie.url.isNotBlank()) {
+                    Picasso.get().load(movie.url).into(view.PrimaryImage)
+                    Picasso.get().load(movie.url).into(view.BluuredImage)
+                }
+            }
+        }
+        return view.root
     }
 
     companion object {
@@ -47,13 +59,10 @@ class MovieDetailFragment : Fragment() {
          * @param param2 Parameter 2.
          * @return A new instance of fragment MovieDetailFragment.
          */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             MovieDetailFragment().apply {
                 arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
                 }
             }
     }

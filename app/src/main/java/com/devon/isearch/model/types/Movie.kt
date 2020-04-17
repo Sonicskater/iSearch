@@ -7,6 +7,12 @@ open class Movie(@PrimaryKey var title: String) : RealmObject(){
 
     var movieId: String = ""
 
+    var description: String = ""
+
+    var url: String = ""
+
+    var artist: String = ""
+
     constructor():this("")
 
     override fun equals(other: Any?): Boolean {

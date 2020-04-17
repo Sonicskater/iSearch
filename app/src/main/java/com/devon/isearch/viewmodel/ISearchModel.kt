@@ -8,4 +8,6 @@ import com.devon.isearch.model.types.Movie
 abstract class ISearchModel: ViewModel(){
     abstract val movies: LiveData<out List<Movie>>
     abstract var searchString: String
+
+    abstract fun connected() : Boolean
 }

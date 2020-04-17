@@ -52,7 +52,16 @@ class MovieListFragmentTest {
     }
     @Test
     fun testInitialState(){
-        val scenario = launchFragmentInContainer<MovieListFragment>(fragmentArgs = null, factory = null)
+        val navController = TestNavHostController(
+            ApplicationProvider.getApplicationContext()
+        )
+        navController.setGraph(R.navigation.nav_graph)
+
+        val listScenario = launchFragmentInContainer<MovieListFragment>()
+
+        listScenario.onFragment {
+            Navigation.setViewNavController(it.requireView(), navController)
+        }
 
         onView(withId(R.id.movie_list)).check{ view, noViewFoundException ->
             noViewFoundException?.apply {
@@ -66,7 +75,16 @@ class MovieListFragmentTest {
 
     @Test
     fun testInitialStateSearch(){
-        val scenario = launchFragmentInContainer<MovieListFragment>(fragmentArgs = null, factory = null)
+        val navController = TestNavHostController(
+            ApplicationProvider.getApplicationContext()
+        )
+        navController.setGraph(R.navigation.nav_graph)
+
+        val listScenario = launchFragmentInContainer<MovieListFragment>()
+
+        listScenario.onFragment {
+            Navigation.setViewNavController(it.requireView(), navController)
+        }
 
         onView(withId(R.id.search_bar)).check{ view, noViewFoundException ->
             noViewFoundException?.apply {
@@ -80,7 +98,16 @@ class MovieListFragmentTest {
 
     @Test
     fun testChangeText(){
-        val scenario = launchFragmentInContainer<MovieListFragment>(fragmentArgs = null, factory = null)
+        val navController = TestNavHostController(
+            ApplicationProvider.getApplicationContext()
+        )
+        navController.setGraph(R.navigation.nav_graph)
+
+        val listScenario = launchFragmentInContainer<MovieListFragment>()
+
+        listScenario.onFragment {
+            Navigation.setViewNavController(it.requireView(), navController)
+        }
         val test_string = "A"
         onView(withId(R.id.search_bar)).perform(click(), typeText(test_string)).check{ view, noViewFoundException ->
             noViewFoundException?.apply {
@@ -94,7 +121,16 @@ class MovieListFragmentTest {
 
     @Test
     fun testChangeTextSearch(){
-        val scenario = launchFragmentInContainer<MovieListFragment>(fragmentArgs = null, factory = null)
+        val navController = TestNavHostController(
+            ApplicationProvider.getApplicationContext()
+        )
+        navController.setGraph(R.navigation.nav_graph)
+
+        val listScenario = launchFragmentInContainer<MovieListFragment>()
+
+        listScenario.onFragment {
+            Navigation.setViewNavController(it.requireView(), navController)
+        }
         val test_string = "A"
         onView(withId(R.id.movie_list)).check { view, noViewFoundException ->
             noViewFoundException?.apply {

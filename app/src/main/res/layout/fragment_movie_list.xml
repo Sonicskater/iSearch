@@ -8,22 +8,20 @@
     android:orientation="vertical"
     tools:context=".view.MovieListFragment">
 
-
-    <!-- TODO: Update blank fragment layout -->
-
-    <LinearLayout
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
+        app:cardElevation="10dp">
         <EditText
+            android:hint="@string/search_hint"
             android:id="@+id/search_bar"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:inputType="textPersonName" />
-    </LinearLayout>
+            android:inputType="textPersonName"
+            android:autofillHints="no" />
+    </androidx.cardview.widget.CardView>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/movie_refresh"
