@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.devon.isearch.R
 import com.devon.isearch.databinding.FragmentMovieDetailBinding
@@ -51,6 +52,10 @@ class MovieDetailFragment : Fragment() {
                     Picasso.get().load(movie.url).transform(BlurTransformation(context, 15, 1)).into(view.BluuredImage)
                 }
             }
+        }
+
+        view.imageButton.setOnClickListener {
+            this.findNavController().navigateUp()
         }
         return view.root
     }

@@ -19,6 +19,8 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.devon.isearch.model.types.Movie
 import com.devon.isearch.mocks.MockSearchModel
 import com.devon.isearch.view.MovieCardAdapter
+import com.devon.isearch.view.MovieDetailFragment
+import com.devon.isearch.view.MovieDetailFragmentArgs
 import com.devon.isearch.view.MovieListFragment
 import com.devon.isearch.viewmodel.ISearchModel
 import kotlinx.android.synthetic.main.test_text_view.view.*
@@ -39,14 +41,17 @@ class MovieListFragmentTest {
     // Test that the recycler view is initialized correctly to an empty state
     @Before
     fun setup(){
+        val tvm = MockSearchModel(
+            mutableListOf(
+                Movie("Antman")
+            )
+        )
         stopKoin()
         startKoin {
             modules(module {
-                viewModel<ISearchModel> { MockSearchModel(
-                    mutableListOf(
-                        Movie("Antman")
-                    )
-                ) }
+                viewModel<ISearchModel> {
+                    tvm
+                }
             })
         }
     }
