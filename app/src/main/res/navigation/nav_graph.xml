@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/movieListFragment">
+    app:startDestination="@id/movieListFragment"
+    tools:ignore="UnusedNavigation">
 
     <fragment
         android:id="@+id/movieListFragment"
@@ -20,7 +21,7 @@
         android:label="fragment_movie_detail"
         tools:layout="@layout/fragment_movie_detail" >
         <argument
-            android:name="movieId"
-            app:argType="string" />
+            android:name="index"
+            app:argType="integer" />
     </fragment>
 </navigation>
