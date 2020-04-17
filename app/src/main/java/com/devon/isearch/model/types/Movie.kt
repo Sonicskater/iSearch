@@ -5,13 +5,15 @@ import io.realm.annotations.PrimaryKey
 
 open class Movie(@PrimaryKey var title: String) : RealmObject(){
 
-    var movieId: String = ""
-
     var description: String = ""
 
     var url: String = ""
 
     var artist: String = ""
+
+    var genre: String = ""
+
+    var releaseYear: Int = 0
 
     constructor():this("")
 

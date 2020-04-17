@@ -1,5 +1,6 @@
 package com.devon.isearch.view
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,6 +11,7 @@ import com.devon.isearch.R
 import com.devon.isearch.databinding.FragmentMovieDetailBinding
 import com.devon.isearch.viewmodel.ISearchModel
 import com.squareup.picasso.Picasso
+import jp.wasabeef.picasso.transformations.BlurTransformation
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 /**
@@ -29,6 +31,7 @@ class MovieDetailFragment : Fragment() {
         index = args.index
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -39,11 +42,13 @@ class MovieDetailFragment : Fragment() {
         // configure view to display desired object
         index?.let {
             view_model.movies.value?.get(it)?.let { movie ->
-                view.movieTitle.text = movie.title ?: "No movie found"
-                view.movieDesc.text = movie.description ?: ""
+                view.movieTitle.text = "${movie.title} (${movie.releaseYear})"
+                view.movieDesc.text = movie.description
+                view.movieGenre.text = movie.genre
+                view.author.text = "Director: ${movie.artist}"
                 if (movie.url.isNotBlank()) {
                     Picasso.get().load(movie.url).into(view.PrimaryImage)
-                    Picasso.get().load(movie.url).into(view.BluuredImage)
+                    Picasso.get().load(movie.url).transform(BlurTransformation(context, 15, 1)).into(view.BluuredImage)
                 }
             }
         }

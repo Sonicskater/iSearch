@@ -21,6 +21,8 @@ class iTunesSource: IDataSource {
             url = data.artworkUrl100.replace("100x100bb.jpg","600x600bb.jpg")
             description = data.longDescription
             artist = data.artistName
+            genre = data.primaryGenreName
+            releaseYear = data.releaseDate.year + 1900 // 1900 needed to compute correct date
         } } ?: listOf()
     }
 }
